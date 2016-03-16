@@ -9,8 +9,7 @@ import scrapy
 
 
 class BugItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+
     title = scrapy.Field()
     ssvid = scrapy.Field()
     discover_time = scrapy.Field()
@@ -30,3 +29,5 @@ class BugItem(scrapy.Item):
     influence_component = scrapy.Field()
     
     bug_abstract = scrapy.Field()
+    
+    url = scrapy.Field()

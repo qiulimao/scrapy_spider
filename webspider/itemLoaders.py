@@ -15,10 +15,18 @@ def filter_useless(str_content):
     cleaned_string =  re.sub(r"vul-level",u"",str_content.encode('utf-8'))
     return cleaned_string.decode('utf-8')
     
+def verify_date(str_content):
+    if re.search(r"\d{4}-\d{1,2}-\d{1,2}",str_content.encode('utf-8')):
+        return str_content
+    else:
+        return u'1970-01-01'
+    
     
 
 class BugLoader(ItemLoader):
     default_output_processor = Join()
     default_input_processor = MapCompose(strip_blank)
     danger_level_in = Compose(TakeFirst(),filter_useless,strip_blank)
+    discover_time_in = Compose(TakeFirst(),verify_date,strip_blank)
+    commit_time_in = Compose(TakeFirst(),verify_date,strip_blank)
     

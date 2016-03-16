@@ -1,13 +1,16 @@
 #!-*-encoding:utf-8-*-
-from scrapy.spiders import Spider
-import scrapy
-from seebug.itemLoaders import BugLoader
-from seebug.items import BugItem
-
-from scrapy.exceptions import CloseSpider
 import datetime
 import os 
 from os.path import dirname
+
+from scrapy.spiders import Spider
+import scrapy
+from scrapy.exceptions import CloseSpider
+
+from webspider.itemLoaders import BugLoader
+from webspider.items import BugItem
+from webspider.settings import TOP_DIR
+
 
 class SeebugSpider(Spider):
     """
@@ -23,13 +26,13 @@ class SeebugSpider(Spider):
     custom_settings={
 		'ITEM_PIPELINES':
 			{
-			'seebug.pipelines.SeebugPipeline': 300,			
+			'webspider.pipelines.SeebugPipeline': 300,			
 			},
 		 }
          
     max_page_num = 4000   
     
-    current_page = 1
+    #current_page = 1
     
     def parse(self,response):
         """
@@ -42,13 +45,18 @@ class SeebugSpider(Spider):
             one_page_url = one_page.xpath("./td[@class='vul-title-wrapper']/a/@href").extract()[0]
             link = response.urljoin(one_page_url)
             bug_detail_request = scrapy.Request(link,callback=self.parse_one)
-            bug_detail_request.meta['page'] = self.current_page
             yield bug_detail_request
         
-        self.current_page += 1
-        next_url = "https://www.seebug.org/vuldb/vulnerabilities?page={0}".format(self.current_page)
-        
-        yield scrapy.Request(next_url,callback = self.parse) 
+        #self.current_page += 1
+        #next_url = "https://www.seebug.org/vuldb/vulnerabilities?page={0}".format(self.current_page)
+        next_page_path = response.xpath("//ul[@class='pagination']/li[@class='active']/following-sibling::li[1]/a/@href").extract()
+        current_page_num = response.xpath("//ul[@class='pagination']/li[@class='active']/a/text()").extract()[0]
+
+        if next_page_path and int(current_page_num) < self.max_page_num:
+            next_url = response.urljoin(next_page_path[0])
+            yield scrapy.Request(next_url,callback = self.parse) 
+        else:
+            raise CloseSpider("no more pages")
         #next_page_path = response.xpath("//ul[@class='pagination']/li[@class='active']/following-sibling::li[1]/a/@href").extract()
         #if next_page_path:
         #    next_url = response.urljoin(next_page_path[0])
@@ -81,6 +89,7 @@ class SeebugSpider(Spider):
         bug_item.add_xpath("influence_component","//section[@id='j-vul-basic-info']/dl[2]/dd/a/text()")
         
         bug_item.add_xpath("bug_abstract","//div[@id='j-md-summary']/text()")
+        bug_item.add_value("url",response.url)
         return bug_item.load_item()
         
         

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
+import os
+from os.path import dirname
+import sys
 
-# Scrapy settings for seebug project
+TOP_DIR = dirname(dirname(os.path.abspath(__file__)))
+# Scrapy settings for webspider project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,21 +13,21 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'seebug'
+BOT_NAME = 'webspider'
 
-SPIDER_MODULES = ['seebug.spiders']
-NEWSPIDER_MODULE = 'seebug.spiders'
+SPIDER_MODULES = ['webspider.spiders']
+NEWSPIDER_MODULE = 'webspider.spiders'
 
 LOG_LEVEL = 'INFO'
-#LOG_FILE = os.path.join(TOP_DIR,"logOfWooyun.log")
+#LOG_FILE = os.path.join(TOP_DIR,"webspider.log")
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.116 Chrome/48.0.2564.116 Safari/537.36'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'seebug (+http://www.yourdomain.com)'
+#USER_AGENT = 'webspider (+http://www.yourdomain.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS=32
+CONCURRENT_REQUESTS=64
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -48,13 +52,13 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'seebug.middlewares.MyCustomSpiderMiddleware': 543,
+#    'webspider.middlewares.MyCustomSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'seebug.middlewares.MyCustomDownloaderMiddleware': 543,
+#    'webspider.middlewares.MyCustomDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -66,7 +70,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    'seebug.pipelines.SomePipeline': 300,
+#    'webspider.pipelines.SomePipeline': 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -87,3 +91,6 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+#数据库位置：(databasetype)://username:password@hostname/databasename?otheroptions=xxx
+#webtrash
+DATABASE_URL = 'mysql://qiulimao:mimashiroot@192.168.21.119/webtrash?charset=utf8'
