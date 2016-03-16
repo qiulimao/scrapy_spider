@@ -21,6 +21,7 @@ class SeebugPipeline(object):
         try:
             seebug_item_id = session.query(Seebug.id).filter(Seebug.url_md5==item_url_md5).one()            
             session.query(Seebug).filter(id==seebug_item_id.id).update(item)
+            session.commit()
             logging.info("[%d] %s is in the database$$$$$$"%(seebug_item_id.id,item['url']))           
         except NoResultFound:
             seebug_item = Seebug(**item)

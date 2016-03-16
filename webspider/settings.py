@@ -19,7 +19,7 @@ SPIDER_MODULES = ['webspider.spiders']
 NEWSPIDER_MODULE = 'webspider.spiders'
 
 LOG_LEVEL = 'INFO'
-#LOG_FILE = os.path.join(TOP_DIR,"webspider.log")
+LOG_FILE = os.path.join(TOP_DIR,"spider.log")
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.116 Chrome/48.0.2564.116 Safari/537.36'
@@ -27,7 +27,7 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 #USER_AGENT = 'webspider (+http://www.yourdomain.com)'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS=64
+#CONCURRENT_REQUESTS=32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay

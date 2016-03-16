@@ -10,6 +10,7 @@ from scrapy.exceptions import CloseSpider
 from webspider.itemLoaders import BugLoader
 from webspider.items import BugItem
 from webspider.settings import TOP_DIR
+#from webspider.util import config_jobdir
 
 
 class SeebugSpider(Spider):
@@ -23,11 +24,13 @@ class SeebugSpider(Spider):
     ]
     
     allowed_domains = ["www.seebug.org"]
+    
     custom_settings={
 		'ITEM_PIPELINES':
 			{
 			'webspider.pipelines.SeebugPipeline': 300,			
 			},
+        'JOBDIR':os.path.join(TOP_DIR,'seebug_spider_runtime'),
 		 }
          
     max_page_num = 4000   
@@ -94,5 +97,17 @@ class SeebugSpider(Spider):
         
         
         
-        
+class SeebugUpdator(SeebugSpider):
+    """
+        跟新模块
+    """     
+    
+    name = "seebug_updator"
+    max_page_num = 5
+    custom_settings={
+		'ITEM_PIPELINES':
+			{
+			'webspider.pipelines.SeebugPipeline': 300,			
+			},
+		 }       
         
