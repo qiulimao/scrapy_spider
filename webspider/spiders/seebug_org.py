@@ -7,8 +7,8 @@ from scrapy.spiders import Spider
 import scrapy
 from scrapy.exceptions import CloseSpider
 
-from webspider.itemLoaders import BugLoader
-from webspider.items import BugItem
+from webspider.itemLoaders import SeeBugLoader
+from webspider.items import SeeBugItem
 from webspider.settings import TOP_DIR
 #from webspider.util import config_jobdir
 
@@ -58,8 +58,8 @@ class SeebugSpider(Spider):
         if next_page_path and int(current_page_num) < self.max_page_num:
             next_url = response.urljoin(next_page_path[0])
             yield scrapy.Request(next_url,callback = self.parse) 
-        else:
-            raise CloseSpider("no more pages")
+        #else:
+        #    raise CloseSpider("no more pages")
         #next_page_path = response.xpath("//ul[@class='pagination']/li[@class='active']/following-sibling::li[1]/a/@href").extract()
         #if next_page_path:
         #    next_url = response.urljoin(next_page_path[0])
@@ -72,7 +72,7 @@ class SeebugSpider(Spider):
         """
         #print response.meta.get("page")
         #print response.xpath("//title/text()").extract()[0]
-        bug_item = BugLoader(item=BugItem(),response=response)
+        bug_item = SeeBugLoader(item=SeeBugItem(),response=response)
         bug_item.add_css('title',"h1#j-vul-title::text")
         bug_item.add_css("ssvid","section#j-vul-basic-info > div.row > div.col-md-6:nth-of-type(1) > dl:nth-of-type(1) >dd >a::text")
         bug_item.add_css("discover_time","section#j-vul-basic-info > div.row > div.col-md-6:nth-of-type(1) > dl:nth-of-type(2) >dd::text")
@@ -101,9 +101,14 @@ class SeebugUpdator(SeebugSpider):
     """
         跟新模块
     """     
-    
+    start_urls = [
+        "https://www.seebug.org/vuldb/vulnerabilities"
+    ] 
+
     name = "seebug_updator"
-    max_page_num = 5
+
+    max_page_num = 3
+
     custom_settings={
 		'ITEM_PIPELINES':
 			{

@@ -19,7 +19,7 @@ SPIDER_MODULES = ['webspider.spiders']
 NEWSPIDER_MODULE = 'webspider.spiders'
 
 LOG_LEVEL = 'INFO'
-LOG_FILE = os.path.join(TOP_DIR,"spider.log")
+LOG_FILE = os.path.join(TOP_DIR,"webspider.log")
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/48.0.2564.116 Chrome/48.0.2564.116 Safari/537.36'
@@ -94,3 +94,4 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 #数据库位置：(databasetype)://username:password@hostname/databasename?otheroptions=xxx
 #webtrash
 DATABASE_URL = 'mysql://root:root@192.168.20.148/networkattacktracing?charset=utf8'
+#DATABASE_URL = 'mysql://qiulimao:xxxx@localhost/webcontent?charset=utf8'
