@@ -20,13 +20,14 @@ class Seebug(Base):
         定义数据库映射
     """
     
-    __tablename__ = "seebug"
+    __tablename__ = "vul_seebug"
     
     id = Column(Integer,primary_key=True)
     title = Column(String(256),nullable=False)
     ssvid = Column(String(32),nullable=False)
-    discover_time = Column(Date,nullable=False)
+    discover_time = Column(Date,nullable=True)
     commit_time = Column(Date,nullable=True)
+    #PubTime  = Column(Date,nullable=True)
     danger_level = Column(String(8),nullable=False)
     bug_type = Column(String(32),nullable=True)
     cveid = Column(String(16),nullable=True)

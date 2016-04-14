@@ -93,4 +93,4 @@ USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Ge
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
 #数据库位置：(databasetype)://username:password@hostname/databasename?otheroptions=xxx
 #webtrash
-DATABASE_URL = 'mysql://qiulimao:mimashiroot@192.168.21.119/webtrash?charset=utf8'
+DATABASE_URL = 'mysql://root:root@192.168.20.148/networkattacktracing?charset=utf8'

@@ -19,7 +19,8 @@ def verify_date(str_content):
     if re.search(r"\d{4}-\d{1,2}-\d{1,2}",str_content.encode('utf-8')):
         return str_content
     else:
-        return u'1970-01-01'
+        return "NULL"
+        #return "1970-01-01"
     
     
 
